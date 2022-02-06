@@ -1,0 +1,177 @@
+<!doctype html>
+<title>Piano Translator</title> 
+
+<!--STYLE GUIDELINES-->
+<style>
+	.title {
+	  font-family: Tahoma;
+	}
+
+	body {
+		font-family: Tahoma;
+  		background-color:#eee0b9;
+	}
+
+	h2 {
+		font-family: Tahoma;
+		color: #b7521e;
+	}
+
+	.form-style-4{ 
+		font-size: 16px; 
+		padding: 30px 30px 0px 30px; 
+	}
+	.form-style-4 input[type=submit],
+	.form-style-4 input[type=button],
+	.form-style-4 input[type=text],
+	.form-style-4 input[type=email],
+	.form-style-4 textarea,
+	.form-style-4 label
+	{
+		font-family: Tahoma, "Tahoma", Times, serif;
+		font-size: 16px;
+		color: #524636;
+	
+	}
+	.form-style-4 label {
+		display:block;
+		/*margin-bottom: 10px;*/
+	}
+	.form-style-4 label > {
+		display: inline-block;
+		float: left;
+		width: 150px;
+	}
+	.form-style-4 input[type=text],
+	.form-style-4 input[type=email] 
+	{
+		background: transparent;
+		border: none;
+		border-bottom: 1px dashed #e4b04a;
+		width: 275px;
+		outline: none;
+		padding-left: 0px 0px 0px 0px;
+		font-style: italic;
+	}
+	.form-style-4 textarea{
+		font-style: italic;
+		padding: 0px 0px 0px 0px;
+		background: transparent;
+		outline: none;
+		border: none;
+		border-bottom: 1px dashed #e4b04a;
+		width: 275px;
+		overflow: hidden;
+		resize:none;
+		height:20px;
+	}
+	
+	.form-style-4 textarea:focus, 
+	.form-style-4 input[type=text]:focus,
+	.form-style-4 input[type=email]:focus,
+	.form-style-4 input[type=email] :focus
+	{
+		border-bottom: 1px dashed #9c8c74;
+	}
+	
+	.form-style-4 input[type=submit],
+	.form-style-4 input[type=button]{
+		background: #9e7f2b;
+		border: none;
+		/*padding: 8px 10px 8px 10px;*/
+		border-radius: 5px;
+		color: #A8BACE;
+	}
+	.form-style-4 input[type=submit]:hover,
+	.form-style-4 input[type=button]:hover{
+	background: #eee0b9;
+	
+	}
+</style> 
+
+<div class= "title">
+	<h2 >Piano Translator</h2>
+</div>
+
+
+<p>
+	{% with messages = get_flashed_messages() %}
+	  {% if messages %}
+		<ul>
+		{% for message in messages %}
+		  <li>{{ message }}</li>
+		{% endfor %}
+		</ul>
+	  {% endif %}
+	{% endwith %}
+</p>
+{% if filename %}
+	<div style="margin: 10px auto;">
+		<video autoplay="autoplay" controls="controls" preload="preload">
+			<source src="{{ url_for('display_video', filename=filename) }}" type="video/mp4"></source>
+		</video>
+	</div>
+{% endif %}
+
+<!-- Basic Inputs --> 
+<form class="form-style-4" method="post" action="/" enctype="multipart/form-data">
+    <dl>
+		<p>
+
+			<!-- Note Timing Info-->
+			<label for="kFrame">
+				<span>What time does the keyboard show on screen</span>
+				<input type="text"  id="kFrame" name="keyFrame" placeholder = "0:38" />
+			</label>
+
+			<label for="nFrame">
+				<span>What time does the first note show on screen</span>
+				<input type="text"  id="nFrame" name="noteFrame" placeholder = "0:53" />
+			</label>
+
+			<label for="lNote">
+				<span>What time does the last note finish playing</span>
+				<input type="text"  id="nFrame" name="lastNote" placeholder = "7:03" />
+			</label>
+		</p>
+</form>
+<form class="form-style-4" method="post" action="/" enctype="multipart/form-data"></form>
+		<p>
+			<!-- Musical Features --> 
+			<label for="temp">What is the tempo of your piece?
+			<input type="number" id="temp" name="tempo" placeholder = "40-250"><br>
+			</label>
+
+			<label for="keyy">What is the key signature in half steps from C?
+			<input type="text" id="keyy" name="key" placeholder = "[-5,5], -5: G, 5:#F"><br>
+			</label>
+			
+			<label for="ttl">What is the piece's title?
+			<input type="text" id="ttl" name="title" placeholder = "Il vento d'oro"><br>
+			</label>
+
+			<label for="comp">Who is the composer?
+			<input type="text" id="comp" name="composer" placeholder = "Yugo Kanno"><br>
+			</label>
+		</p>
+</form>
+
+<form class="form-style-4" method="post" action="/" enctype="multipart/form-data"></form>
+		<p>Advanced Parameters</p>
+		<p>
+			<!-- Additional Parameters-->
+			<label for ="nT"> What is the note threshold?
+			<input type="number" id="nT" name="noteThreshold" placeholder = "30"><br>
+			</label>
+		</p>
+
+		<p>
+			<!-- Upload Video-->
+			<input type="file" name="file" autocomplete="off" required>
+			<input type="submit" value="Upload"> <br>
+		</p> 
+    </dl>
+</form>
+
+
+  
